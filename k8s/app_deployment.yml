@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fakeshop
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: fakeshop
+  template:
+    metadata:
+      labels:
+        app: fakeshop
+    spec:
+      containers:
+      - name: fakeshop
+        image: saulooramos/fake-shop:v1
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_HOST
+          value: postgres
+        - name: DB_USER
+          value: ecommerce
+        - name: DB_NAME
+          value: ecommerce
+        - name: DB_PASSWORD
+          value: Pg1234
+        - name: DB_PORT
+          value: "5432"
+        - name: FLASK_APP
+          value: index.py
